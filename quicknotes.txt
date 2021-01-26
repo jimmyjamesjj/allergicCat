@@ -1,0 +1,15 @@
+ function circle() {
+        ctx.beginPath()
+        ctx.arc(circleX,circleY, circleRadius, 0, Math.PI*2)
+        ctx.stroke()
+        ctx.fillStyle = "white"
+        ctx.fill()
+        ctx.closePath()
+    }
+    setInterval(()=>{
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        circle()
+        circleX +=1
+        circleY+=1
+    }, 10)
+    
