@@ -7,6 +7,9 @@ let circleRadius=25
 let circleX=300
 let circleY =50
 
+let blokX = 290;
+let blokY = 240;
+
 let isLeftArrow = false
 let isRightArrow = false
 let isUpArrow =false
@@ -67,16 +70,17 @@ document.addEventListener('keyup', (event) => {
 })
 
 
+
 function draw(){
     ctx.drawImage(backImg, 0,0)
      
     ctx.drawImage(catImg, catX, catY)
 
-    ctx.drawImage(blokImg,290,240)
+    ctx.drawImage(blokImg, blokX, blokY)
 
-    
+    let constant = blokImg.height + 100
 
-        for(let i=0; i< snow.length ;i++) {
+        for(let i=0; i< snow.length; i++) {
             ctx.drawImage(snowImg, snow[i].x, snow[i].y)
             
             snow[i].x--
@@ -90,6 +94,12 @@ function draw(){
                     x: canvas.width - 30,
                     y: -Math.floor(Math.random() * snowImg.height)  
                 })
+
+                //SNOW COLLISION if () {
+                //     console.log('Game Ended')
+                //     alert('Game Over')
+                //     clearInterval(intervalID);
+                // }
             }
         }
         if(isLeftArrow){
@@ -107,14 +117,14 @@ function draw(){
          catY+=1
      }
 
-     if( catX + catImg.width >= blokImg[i].x && catX <= blokImg[i].x + snowImg.width && 
-        (catY <= blokImg[i].y + blokImg.height || catY+catImg.height >= blokImg[i].y + constant) || 
+     if( catX + catImg.width >= blokX && catX <= blokX + snowImg.width && 
+        (catY <= blokY + blokImg.height || catY+catImg.height >= blokY + constant) || 
         catY + catImg.height >=  canvas.height){
-            
+        console.log('Game Ended')
+        alert('Game Over')
         clearInterval(intervalID);
-        //DONT EVER DO THE NEXT TWO LINES. This is only for explanations
-        // alert('GAME OVER');
-        // location.reload(); 
+       
+        
     }
 
 
