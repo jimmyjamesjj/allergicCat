@@ -9,6 +9,8 @@ let circleY =50
 
 let blokX = 290;
 let blokY = 240;
+let snowX=30
+let snowY=90
 
 let isLeftArrow = false
 let isRightArrow = false
@@ -78,7 +80,7 @@ function draw(){
 
     ctx.drawImage(blokImg, blokX, blokY)
 
-    let constant = blokImg.height + 100
+    // let constant = blokImg.height + 100
 
         for(let i=0; i< snow.length; i++) {
             ctx.drawImage(snowImg, snow[i].x, snow[i].y)
@@ -95,43 +97,53 @@ function draw(){
                     y: -Math.floor(Math.random() * snowImg.height)  
                 })
 
-                //SNOW COLLISION if () {
-                //     console.log('Game Ended')
-                //     alert('Game Over')
-                //     clearInterval(intervalID);
-                // }
+                if( ((catX >= snowX && catX + catImg.width <= snowX + snowImg.width) && 
+            (catY+catImg.height >= snowY)) || catY + catImg.height >=  canvas.height){
+                    
+                
+             console.log('collision')
+            clearInterval(intervalID);
+            //     //SNOW COLLISION if () {
+            //     //     console.log('Game Ended')
+            //     //     alert('Game Over')
+            //         clearInterval(intervalID);
+            //     // }
             }
         }
-        if(isLeftArrow){
 
-               catX-=1
+        if(isLeftArrow){
+            catX-=1
         }
+
         if(isRightArrow){
             catX+=1
         }
+
         if(isUpArrow){
 
             catY-=1
-     }
-     if(isDownArrow){
-         catY+=1
-     }
+        }
 
-     if( catX + catImg.width >= blokX && catX <= blokX + snowImg.width && 
-        (catY <= blokY + blokImg.height || catY+catImg.height >= blokY + constant) || 
-        catY + catImg.height >=  canvas.height){
-        console.log('Game Ended')
-        alert('Game Over')
-        clearInterval(intervalID);
-       
+        if(isDownArrow){
+            catY+=1
+        }
+
+        if( ((catX >= blokX && catX + catImg.width <= blokX + blokImg.width) && 
+            (catY+catImg.height >= blokY)) || catY + catImg.height >=  canvas.height){
+                    
+                
+        //     console.log('collision')
+            clearInterval(intervalID);
         
-    }
+            
+         }
 
 
     }
-   
-window.addEventListener('load', () => {
+}
+    window.addEventListener('load', () => {
     intervalID = setInterval(() => {
         requestAnimationFrame(draw)
      }, 10)
-})
+    
+    })
