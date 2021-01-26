@@ -7,6 +7,10 @@ let circleRadius=25
 let circleX=300
 let circleY =50
 
+let isLeftArrow = false
+let isRightArrow = false
+let isUpArrow =false
+let isDownArrow =false
 
  let snow = [{x:canvas.width + 10 , y: 0}]
 
@@ -23,89 +27,101 @@ catImg.src= 'images/cat.PNG'
  let snowImg =document.createElement('img')
  snowImg.src= 'images/snow1.PNG'
 //cat axis 
-let catY = 200
+let catY = 220
 let catX = 40
 
 let catDecrement =0
 let catForward=0
 
 let catIncrement = 2
-// event listeners to handle bord movement
-document.addEventListener('mousedown', () => {
-    // decrementing the cat Y value moves the cat to the top of the canvas
-    catIncrement = -5
+
+//handle arrow key click events here
+document.addEventListener('keydown', (event) => {
+    if (event.keyCode== 39 || event.key == "ArrowRight") {
+       isRightArrow = true;
+       isLeftArrow = false;
+    }
+    else if (event.keyCode == 37 || event.key == "ArrowLeft") {
+       isRightArrow = false;
+       isLeftArrow = true;
+    }
+
+    else if (event.keyCode == 40 || event.key == "ArrowDown") {
+        isUpArrow = false;
+        isDownArrow = true;
+
+    }
+    else if (event.keyCode == 38 || event.key == "ArrowUp") {
+        isDownArrow = false;
+        isUpArrow = true;
+        
+    }
 })
 
-document.addEventListener('mouseup', () => {
-    // incrementing the cat Y value moves the cat to the bottom of the canvas
-    catIncrement = 2
+document.addEventListener('keyup', (event) => {
+    isRightArrow = false;
+    isLeftArrow = false;
+    isUpArrow = false;
+    isDownArrow = false;
+
 })
-
-// document.addEventListener('mouseforward', () => {
-//     // incrementing the cat Y value moves the cat to the bottom of the canvas
-//     catIncrement = 8
-// })
-
 
 
 function draw(){
     ctx.drawImage(backImg, 0,0)
      
     ctx.drawImage(catImg, catX, catY)
+
     ctx.drawImage(blokImg,290,240)
 
-   
     
-    // set it here else you will get NaN set up
 
-    let constant = snowImg.height + 100
-    // loop over a set of pipes to create the pipe animation
-    for(let i=0; i< snow.length ;i++) {
-        ctx.drawImage(snowImg, snow[i].x, snow[i].y)
-        // ctx.drawImage(southPipe, pipes[i].x, pipes[i].y + constant)
+        for(let i=0; i< snow.length ;i++) {
+            ctx.drawImage(snowImg, snow[i].x, snow[i].y)
+            
+            snow[i].x--
 
-        // make the pipes move towards the left on the x axis
-        // decrementing the x value does that
-        snow[i].x--
-
-        // check if a pipe has reached a certain position
-        if (snow[i].x == 50) {
-            // increment the score
-            score++
-            // add a new pipe at a random y value
-            snow.push({
-                x: canvas.width - 30,
-                y: -Math.floor(Math.random() * snowImg.height)
-                
-            })
+            //  if snow has reached a certain position
+            if (snow[i].x == 50) {
+                // increment the score
+                score++
+                // add a new snow at a random y value
+                snow.push({
+                    x: canvas.width - 30,
+                    y: -Math.floor(Math.random() * snowImg.height)  
+                })
+            }
         }
- }
+        if(isLeftArrow){
 
-        // Visualize it.............................
-        // if( catX + catImg.width >= pipes[i].x && catX <= pipes[i].x + northPipe.width && (catY <= pipes[i].y + northPipe.height || catY+catImg.height >= pipes[i].y + constant) || catY + catImg.height >=  canvas.height - fgImg.height){
+               catX-=1
+        }
+        if(isRightArrow){
+            catX+=1
+        }
+        if(isUpArrow){
 
-        //     clearInterval(intervalID);
-        //     //DONT EVER DO THE NEXT TWO LINES. This is only for explanations
-        //     alert('GAME OVER');
-        //     location.reload(); ......................
-        // }
-        catX += 1
-        catY +=1
+            catY-=1
+     }
+     if(isDownArrow){
+         catY+=1
+     }
+
+     if( catX + catImg.width >= blokImg[i].x && catX <= blokImg[i].x + snowImg.width && 
+        (catY <= blokImg[i].y + blokImg.height || catY+catImg.height >= blokImg[i].y + constant) || 
+        catY + catImg.height >=  canvas.height){
+            
+        clearInterval(intervalID);
+        //DONT EVER DO THE NEXT TWO LINES. This is only for explanations
+        // alert('GAME OVER');
+        // location.reload(); 
     }
-    // add your score text
-    // ctx.font = '20px Verdana'
-    // ctx.fillText('Score: ' + score, 10, canvas.height - 50)..........................
-     
-    // make the bird fall
-    // putting a +ve "y" value does that
-   
-    
-   
-// create your interval here
 
 
+    }
+   
 window.addEventListener('load', () => {
     intervalID = setInterval(() => {
         requestAnimationFrame(draw)
-     }, 1)
+     }, 10)
 })

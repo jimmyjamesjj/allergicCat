@@ -13,3 +13,24 @@
         circleY+=1
     }, 10)
     
+
+     // if (catY + catImg.width > canvasheight){
+    //     catX = canvas.width - catImg.height
+    //     catY = canvas.width - catImg.height
+    // }.............alivaro
+
+
+
+    / event listeners to handle cat movement
+document.addEventListener('mousedown', () => {
+    // decrementing the cat Y value moves the cat to the top of the canvas
+    catIncrement = -5
+})
+document.addEventListener('mouseup', () => {
+    // incrementing the cat Y value moves the cat to the bottom of the canvas
+    catIncrement = 2
+})
+// document.addEventListener('mouseforward', () => {
+//     // incrementing the cat Y value moves the cat to the bottom of the canvas
+//     catIncrement = 8
+// })...........move cat forwad
