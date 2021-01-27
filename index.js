@@ -9,8 +9,8 @@ let circleY =50
 
 let blokX = 290;
 let blokY = 240;
-let snowX=30
-let snowY=90
+// let snowX=30
+// let snowY=90
 
 let isLeftArrow = false
 let isRightArrow = false
@@ -34,6 +34,8 @@ catImg.src= 'images/cat.PNG'
 //cat axis 
 let catY = 220
 let catX = 40
+let catWidth = 80
+let catHeight = 50
 
 let catDecrement =0
 let catForward=0
@@ -76,11 +78,15 @@ document.addEventListener('keyup', (event) => {
 function draw(){
     ctx.drawImage(backImg, 0,0)
      
-    ctx.drawImage(catImg, catX, catY)
+    ctx.drawImage(catImg, catX, catY, catWidth, catHeight)
 
     ctx.drawImage(blokImg, blokX, blokY)
-
-    // let constant = blokImg.height + 100
+    //scores
+    ctx.font = '25px Verdana'
+    ctx.fillText('Score: ' + score, 10, canvas.height - 10)  
+        // if(catImg.x==5){
+        //     score+=10
+        // }
 
         for(let i=0; i< snow.length; i++) {
             ctx.drawImage(snowImg, snow[i].x, snow[i].y)
@@ -90,19 +96,20 @@ function draw(){
             //  if snow has reached a certain position
             if (snow[i].x == 50) {
                 // increment the score
-                score++
+                score+=10
                 // add a new snow at a random y value
                 snow.push({
                     x: canvas.width - 30,
-                    y: -Math.floor(Math.random() * snowImg.height)  
+                    y: Math.floor(Math.random() * snowImg.height)  
                 })
 
-                if( ((catX >= snowX && catX + catImg.width <= snowX + snowImg.width) && 
-            (catY+catImg.height >= snowY)) || catY + catImg.height >=  canvas.height){
-                    
+                if( ((catX + catWidth >= snow[i].x + snowImg.width  && catX + catWidth <= snow[i].x + snowImg.width) && 
+                (catY+catImg.height >=  snow[i].y)) || catY + catImg.height >=  canvas.height){
                 
-             console.log('collision')
-            clearInterval(intervalID);
+                    alert('Game Over')                   
+                
+            
+                clearInterval(intervalID);
             //     //SNOW COLLISION if () {
             //     //     console.log('Game Ended')
             //     //     alert('Game Over')
@@ -130,20 +137,32 @@ function draw(){
 
         if( ((catX >= blokX && catX + catImg.width <= blokX + blokImg.width) && 
             (catY+catImg.height >= blokY)) || catY + catImg.height >=  canvas.height){
-                    
+                 alert('Game Over')   
                 
         //     console.log('collision')
             clearInterval(intervalID);
         
             
          }
+//  wining game
+         if(catX>=canvas.width){
+            clearInterval(intervalID);
+            alert('congratulations you have worn the game')
+         }
 
 
     }
 }
     window.addEventListener('load', () => {
+        canvas.style.display = 'visible'
     intervalID = setInterval(() => {
         requestAnimationFrame(draw)
+
+//   function splashIO (event) {  
+//             if(event.type === "click" || (event.type === "keydown" && event.code === "Enter")){
+                
+        
+            
      }, 10)
     
     })
