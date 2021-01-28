@@ -4,8 +4,7 @@ canvas.style.border = '2px solid black'
 let intervalID = 0
 let score = 0
 let circleRadius=25
-let circleX=300
-let circleY =50
+
 
 let blokX = 290;
 let blokY = 240;
