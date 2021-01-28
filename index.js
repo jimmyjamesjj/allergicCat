@@ -17,6 +17,12 @@ let isRightArrow = false
 let isUpArrow =false
 let isDownArrow =false
 
+let startBtn = document.querySelector('#start')
+let startInfo = document.querySelector('#startInfo')
+let restartBtn = document.querySelector('#restart')
+let restartInfo = document.querySelector('#restartinfo')
+let conginfor =document.querySelector('#congs')
+
  let snow = [{x:canvas.width + 10 , y: 0}]
 
 // create your images
@@ -63,35 +69,34 @@ document.addEventListener('keydown', (event) => {
         isUpArrow = true;
         
     }
-})
+    })
 
 document.addEventListener('keyup', (event) => {
     isRightArrow = false;
     isLeftArrow = false;
     isUpArrow = false;
     isDownArrow = false;
-
 })
 
 
 
 function draw(){
-    ctx.drawImage(backImg, 0,0)
+        ctx.drawImage(backImg, 0,0)
      
-    ctx.drawImage(catImg, catX, catY, catWidth, catHeight)
+        ctx.drawImage(catImg, catX, catY, catWidth, catHeight)
 
-    ctx.drawImage(blokImg, blokX, blokY)
+        ctx.drawImage(blokImg, blokX, blokY)
     //scores
-    ctx.font = '25px Verdana'
-    ctx.fillText('Score: ' + score, 10, canvas.height - 10)  
+        ctx.font = '25px Verdana'
+        ctx.fillText('Score: ' + score, 10, canvas.height - 10)  
         // if(catImg.x==5){
         //     score+=10
         // }
 
         for(let i=0; i< snow.length; i++) {
-            ctx.drawImage(snowImg, snow[i].x, snow[i].y)
-            
-            snow[i].x--
+                ctx.drawImage(snowImg, snow[i].x, snow[i].y)
+                
+                snow[i].x--
 
             //  if snow has reached a certain position
             if (snow[i].x == 50) {
@@ -102,67 +107,113 @@ function draw(){
                     x: canvas.width - 30,
                     y: Math.floor(Math.random() * snowImg.height)  
                 })
+            }   
 
-                if( ((catX + catWidth >= snow[i].x + snowImg.width  && catX + catWidth <= snow[i].x + snowImg.width) && 
-                (catY+catImg.height >=  snow[i].y)) || catY + catImg.height >=  canvas.height){
-                
-                    alert('Game Over')                   
-                
+            if( ((catX + catWidth >= snow[i].x   && catX <= snow[i].x + snowImg.width) && 
+                (catY >=  snow[i].y)) && catY + catImg.height <  snow[i].y + snowImg.height){
+                    clearInterval(intervalID);
+                 restartBtn.style.display='block'
+                canvas.style.display='none'
+                restartInfo.style.display='block' 
             
-                clearInterval(intervalID);
+
+                
+            }     
+                // clearInterval(intervalID);
             //     //SNOW COLLISION if () {
             //     //     console.log('Game Ended')
             //     //     alert('Game Over')
             //         clearInterval(intervalID);
             //     // }
+           
+        }
+            if(isLeftArrow){
+                catX-=1
             }
-        }
 
-        if(isLeftArrow){
-            catX-=1
-        }
+            if(isRightArrow){
+                catX+=1
+            }
 
-        if(isRightArrow){
-            catX+=1
-        }
+            if(isUpArrow){
 
-        if(isUpArrow){
+                catY-=1
+            }
 
-            catY-=1
-        }
+            if(isDownArrow){
+                catY+=1
+            }
 
-        if(isDownArrow){
-            catY+=1
-        }
-
-        if( ((catX >= blokX && catX + catImg.width <= blokX + blokImg.width) && 
+            if( ((catX >= blokX && catX + catImg.width <= blokX + blokImg.width) && 
             (catY+catImg.height >= blokY)) || catY + catImg.height >=  canvas.height){
-                 alert('Game Over')   
+                clearInterval(intervalID);
+                restartBtn.style.display='block'
+                canvas.style.display='none'
+                restartInfo.style.display='block'
+                console.log('game overrrr')
                 
-        //     console.log('collision')
-            clearInterval(intervalID);
-        
-            
-         }
-//  wining game
-         if(catX>=canvas.width){
-            clearInterval(intervalID);
-            alert('congratulations you have worn the game')
-         }
+                
+                
+               
+            }
+//           wining game
+            if(catX>=canvas.width){
+                clearInterval(intervalID);
+                canvas.style.display='none'
+                conginfor.style.display='block'
 
 
-    }
+                // window.addEventListener('load', () => {
+                //     canvas.style.display = 'none'
+                //     restartBtn.addEventListener ('click', () =>{
+                //         restartgame() 
+                //     })
+                // })
+            }
 }
-    window.addEventListener('load', () => {
-        canvas.style.display = 'visible'
-    intervalID = setInterval(() => {
-        requestAnimationFrame(draw)
+//          game sound
+         
 
-//   function splashIO (event) {  
-//             if(event.type === "click" || (event.type === "keydown" && event.code === "Enter")){
-                
-        
-            
-     }, 10)
+        function startGame(){
+            startInfo.style.display = 'none'
+            canvas.style.display = 'block'
+            intervalID = setInterval(() => {
+                requestAnimationFrame(draw)
+            }, 10)
+        }
     
-    })
+    //  restarting the game
+            function restartgame(){
+                restartInfo.style.display='none'
+                restartBtn.style.display='none'
+                catY = 220
+                catX = 40
+                
+                
+                 startGame()
+            }
+
+
+        window.addEventListener('load', () => {
+            canvas.style.display = 'none'
+            restartInfo.style.display = 'none'
+            conginfor.style.display='none'
+            startInfo.style.display='block'
+            
+
+
+            restartBtn.addEventListener ('click', () =>{
+                // restartBtn.style.display='block' 
+                 
+                 console.log("restart button click")
+                 restartgame()   
+        })
+
+            startBtn.addEventListener('click', () =>{
+                startGame() 
+                 console.log("start button click")
+                 
+               
+
+            })
+        })

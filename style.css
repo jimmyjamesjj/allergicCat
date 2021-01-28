@@ -1,4 +1,20 @@
-#myCanvas{
+.body{
+
+    background-color: rgb(147, 170, 63);
+    background-image: url('images/bgCat.PNG');
 
     
+}
+#loadpage{
+text-decoration-color: blue;
+
+}
+
+#congs{
+    text-align: center;
+    font-size: 100px;
+    color: darkblue;
+    
+    
+
 }
