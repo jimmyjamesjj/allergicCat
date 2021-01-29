@@ -96,7 +96,7 @@ function draw(){
                 snow[i].x--
 
             //  if snow has reached a certain position
-            if (snow[i].x == 50) {
+            if (snow[i].x == 100) {
                 // increment the score
                 score+=10
                 // add a new snow at a random y value
@@ -147,8 +147,6 @@ function draw(){
                 restartBtn.style.display='block'
                 canvas.style.display='none'
                 restartInfo.style.display='block'
-                console.log('game overrrr')
-                
                 
                 
                
@@ -176,7 +174,7 @@ function draw(){
             canvas.style.display = 'block'
             intervalID = setInterval(() => {
                 requestAnimationFrame(draw)
-            }, 10)
+            }, 0)
         }
     
     //  restarting the game
