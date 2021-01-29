@@ -24,16 +24,16 @@ let conginfor =document.querySelector('#congs')
 
 // create your images
 let backImg = document.createElement('img')
-backImg.src = './images/bg.png'
+backImg.src = 'images/newbg.png'
 
 let catImg = document.createElement('img')
-catImg.src= './images/cat.png'
+catImg.src= 'images/newcat.png'
 
  let blokImg =document.createElement('img')
- blokImg.src='./images/block.png'
+ blokImg.src='images/newblock.png'
 
  let snowImg =document.createElement('img')
- snowImg.src= './images/snow1.png'
+ snowImg.src= 'images/newsnow1.png'
 //cat axis 
 let catY = 220
 let catX = 40
