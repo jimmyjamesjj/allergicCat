@@ -1,20 +1,44 @@
 .body{
 
-    background-color: rgb(147, 170, 63);
+    /* background-color: rgb(147, 170, 63); */
     background-image: url('images/bgCat.PNG');
 
     
 }
-#loadpage{
-text-decoration-color: blue;
+/* #loadpage{
+text-decoration-color: blue; */
 
-}
+/* } */
 
 #congs{
     text-align: center;
     font-size: 80px;
     color: rgb(63, 58, 58);
-    
-    
+}
+
+
+#startInfo{
+    text-align: center;
+}
+#start{
+background-color: dodgerblue;
+color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+#restartinfo{
+
+    text-align: center;
+    color: rgb(165, 20, 20);
+}
+
+#rest{
 
 }
+ 
